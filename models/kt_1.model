@@ -1,0 +1,138 @@
+NAME	KT	1.0
+
+NODE	 0	0	0	-
+NODE	 1	0	1	2
+NODE	 2	0	2	-
+NODE	 3	0	3	-
+NODE	 4	0	4	-
+NODE	 5	0	5	4
+NODE	 6	1	0	5
+NODE	 7	1	1	4
+NODE	 8	1	2	1,2
+NODE	 9	1	3	1,2
+NODE	10	1	4	1,2
+NODE	11	1	5	1,2
+NODE	12	1	6	1,2
+NODE	13	1	7	12
+NODE	14	1	8	1,2
+NODE	15	1	9	0
+
+PROB	 0	*	A:0.011	C:0.222	G:0.202	U:0.565	.:-   
+
+PROB	 1	A	A:-   	C:0.614	G:0.053	U:0.332	.:-   
+PROB	 1	C	A:-   	C:1.000	G:-   	U:-   	.:-   
+PROB	 1	G	A:0.019	C:0.330	G:0.577	U:0.075	.:-   
+PROB	 1	U	A:-   	C:0.069	G:0.868	U:0.064	.:-   
+
+PROB	 2	*	A:0.045	C:0.002	G:0.787	U:0.166	.:-   
+
+PROB	 3	*	A:0.999	C:-   	G:0.001	U:-   	.:-   
+
+PROB	 4	*	A:0.014	C:0.093	G:0.890	U:0.003	.:-   
+
+PROB	 5	A	A:-   	C:0.613	G:0.301	U:0.086	.:-   
+PROB	 5	C	A:0.024	C:0.764	G:0.111	U:0.101	.:-   
+PROB	 5	G	A:0.073	C:0.242	G:0.564	U:0.121	.:-   
+PROB	 5	U	A:-   	C:0.436	G:0.564	U:-   	.:-   
+
+PROB	 6	A	A:-   	C:0.059	G:0.024	U:0.917	.:-   
+PROB	 6	C	A:-   	C:-   	G:1.000	U:-   	.:-   
+PROB	 6	G	A:-   	C:0.983	G:0.007	U:0.011	.:-   
+PROB	 6	U	A:0.179	C:-   	G:0.821	U:-   	.:-   
+
+PROB	 7	A	A:-   	C:0.228	G:-   	U:0.772	.:-   
+PROB	 7	C	A:-   	C:-   	G:1.000	U:-   	.:-   
+PROB	 7	G	A:-   	C:0.968	G:-   	U:0.032	.:-   
+PROB	 7	U	A:1.000	C:-   	G:-   	U:-   	.:-   
+
+PROB	 8	AG	A:0.197	C:-   	G:0.351	U:0.452	.:-   
+PROB	 8	CA	A:0.776	C:-   	G:0.055	U:0.168	.:-   
+PROB	 8	CC	A:1.000	C:-   	G:-   	U:-   	.:-   
+PROB	 8	CG	A:0.266	C:0.281	G:0.196	U:0.256	.:-   
+PROB	 8	CU	A:0.359	C:0.413	G:-   	U:0.229	.:-   
+PROB	 8	GG	A:0.126	C:0.014	G:0.573	U:0.286	.:-   
+PROB	 8	GU	A:0.181	C:-   	G:0.721	U:0.098	.:-   
+PROB	 8	UA	A:0.088	C:-   	G:0.912	U:-   	.:-   
+PROB	 8	UG	A:0.493	C:0.233	G:0.152	U:0.121	.:-   
+PROB	 8	UU	A:0.178	C:-   	G:0.822	U:-   	.:-   
+
+PROB	 9	AG	A:0.612	C:-   	G:0.128	U:0.260	.:-   
+PROB	 9	CA	A:0.721	C:0.071	G:0.135	U:0.072	.:-   
+PROB	 9	CG	A:0.379	C:0.199	G:0.027	U:0.396	.:-   
+PROB	 9	CU	A:0.477	C:0.378	G:-   	U:0.146	.:-   
+PROB	 9	GA	A:0.548	C:-   	G:-   	U:0.452	.:-   
+PROB	 9	GG	A:0.236	C:0.100	G:0.148	U:0.516	.:-   
+PROB	 9	GU	A:0.186	C:0.084	G:0.044	U:0.688	.:-   
+PROB	 9	UA	A:0.118	C:-   	G:-   	U:0.882	.:-   
+PROB	 9	UG	A:0.515	C:0.044	G:0.128	U:0.312	.:-   
+PROB	 9	UU	A:-   	C:-   	G:-   	U:0.568	.:0.432
+
+PROB	10	AG	A:-   	C:-   	G:-   	U:1.000	.:-   
+PROB	10	CA	A:0.283	C:-   	G:-   	U:0.718	.:-   
+PROB	10	CC	A:-   	C:-   	G:-   	U:1.000	.:-   
+PROB	10	CG	A:0.697	C:0.068	G:0.018	U:0.218	.:-   
+PROB	10	CU	A:0.881	C:-   	G:-   	U:0.119	.:-   
+PROB	10	GA	A:-   	C:-   	G:-   	U:1.000	.:-   
+PROB	10	GG	A:0.373	C:0.077	G:0.060	U:0.489	.:-   
+PROB	10	GU	A:0.712	C:0.028	G:-   	U:0.260	.:-   
+PROB	10	UA	A:-   	C:-   	G:-   	U:1.000	.:-   
+PROB	10	UG	A:0.245	C:0.041	G:-   	U:0.715	.:-   
+PROB	10	UU	A:-   	C:-   	G:-   	U:0.607	.:0.394
+
+PROB	11	AG	A:-   	C:-   	G:1.000	U:-   	.:-   
+PROB	11	CA	A:0.052	C:-   	G:0.948	U:-   	.:-   
+PROB	11	CC	A:-   	C:-   	G:1.000	U:-   	.:-   
+PROB	11	CG	A:0.022	C:-   	G:0.978	U:-   	.:-   
+PROB	11	CU	A:0.467	C:-   	G:0.534	U:-   	.:-   
+PROB	11	GA	A:-   	C:-   	G:1.000	U:-   	.:-   
+PROB	11	GG	A:-   	C:-   	G:1.000	U:-   	.:-   
+PROB	11	GU	A:-   	C:-   	G:1.000	U:-   	.:-   
+PROB	11	UA	A:-   	C:-   	G:0.209	U:0.791	.:-   
+PROB	11	UG	A:0.022	C:-   	G:0.890	U:0.087	.:-   
+PROB	11	UU	A:-   	C:-   	G:0.594	U:0.406	.:-   
+
+PROB	12	AG	A:1.000	C:-   	G:-   	U:-   	.:-   
+PROB	12	CA	A:1.000	C:-   	G:-   	U:-   	.:-   
+PROB	12	CC	A:1.000	C:-   	G:-   	U:-   	.:-   
+PROB	12	CG	A:1.000	C:-   	G:-   	U:-   	.:-   
+PROB	12	CU	A:1.000	C:-   	G:-   	U:-   	.:-   
+PROB	12	GA	A:1.000	C:-   	G:-   	U:-   	.:-   
+PROB	12	GG	A:1.000	C:-   	G:-   	U:-   	.:-   
+PROB	12	GU	A:1.000	C:-   	G:-   	U:-   	.:-   
+PROB	12	UA	A:1.000	C:-   	G:-   	U:-   	.:-   
+PROB	12	UG	A:1.000	C:-   	G:-   	U:-   	.:-   
+PROB	12	UU	A:1.000	C:-   	G:-   	U:-   	.:-   
+
+PROB	13	A	A:-   	C:0.200	G:-   	U:-   	.:0.800
+PROB	13	G	A:-   	C:-   	G:-   	U:-   	.:1.000
+
+PROB	14	AG	A:0.589	C:0.235	G:0.094	U:0.082	.:-   
+PROB	14	CA	A:0.391	C:-   	G:0.609	U:-   	.:-   
+PROB	14	CC	A:-   	C:-   	G:1.000	U:-   	.:-   
+PROB	14	CG	A:0.766	C:0.071	G:0.163	U:-   	.:-   
+PROB	14	CU	A:1.000	C:-   	G:-   	U:-   	.:-   
+PROB	14	GA	A:-   	C:-   	G:-   	U:1.000	.:-   
+PROB	14	GG	A:0.702	C:-   	G:0.004	U:0.293	.:-   
+PROB	14	GU	A:0.243	C:-   	G:0.387	U:0.371	.:-   
+PROB	14	UA	A:0.727	C:0.074	G:0.198	U:-   	.:-   
+PROB	14	UG	A:0.441	C:0.068	G:0.456	U:0.034	.:-   
+PROB	14	UU	A:-   	C:0.423	G:0.577	U:-   	.:-   
+
+PROB	15	A	A:-   	C:-   	G:0.137	U:0.863	.:-   
+PROB	15	C	A:0.026	C:-   	G:0.968	U:0.006	.:-   
+PROB	15	G	A:-   	C:1.000	G:-   	U:-   	.:-   
+PROB	15	U	A:0.400	C:-   	G:0.600	U:-   	.:-   
+
+PAIRS	 0	15	CAN
+PAIRS	 1	14	CAN
+PAIRS	 2	12	CAN
+PAIRS	 3	11	CAN
+PAIRS	 4	 7	MUST
+PAIRS	 5	 6	MUST
+
+NO_PAIRING  8   9   10  13
+
+ORDER	 3	 4	 7	 2	 1	 8	 9	10	11	12	13	14	 5	 6	 0	15
+
+SEPARATION	4	-
+

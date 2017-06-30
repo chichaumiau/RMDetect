@@ -1,0 +1,15 @@
+rmdetect_0.0.3 from 2017-06-30
+	- NEW: work with viennaRNA 2.3.5
+rmdetect_0.0.3 from 2010-02-01
+    - NEW: Incorporating a new tool to build model from PDB files and sequence alignments. 
+    - NEW: Incorporating a new tool to compute evalue estimates for individual models.
+
+rmdetect_0.0.2 from 2010-11-03
+	- BUG: Corrected the 'DeprecationWarning' due to the md5 library.
+	- UPDATE: Warn user about old versions of RNAfold.
+	- UPDATE: the model path choice is verbose now.
+
+rmdetect_0.0.1 from 2010-10-06
+	- First release
+	
+	

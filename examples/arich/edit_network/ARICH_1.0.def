@@ -1,0 +1,38 @@
+NAME	ARICH	1.0
+
+REF_SEQS	GCAAG	UGAAAC
+
+DATA_SOURCE	*****	******	arich_train.stk
+
+NODE	 0	0	0	-
+NODE	 1	0	1	-
+NODE	 2	0	2	-
+NODE	 3	0	3	-
+NODE	 4	0	4	-
+NODE	 5	1	0	4
+NODE	 6	1	1	3
+NODE	 7	1	2	-
+NODE	 8	1	3	1
+NODE	 9	1	4	8,0
+NODE	10	1	5	8,0
+
+
+
+
+
+
+
+
+
+
+
+
+PAIRS	 0	10	MUST
+PAIRS	 4	 5	MUST
+
+NO_PAIRING	 1	 2	 3	 6	 7	 8	 9
+
+ORDER	 0	 1	 2	 3	 4	 5	 6	 7	 8	 9	10
+
+SEPARATION	4	0
+
