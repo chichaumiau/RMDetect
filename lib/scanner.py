@@ -5,8 +5,13 @@ import time
 
 #import models
 from candidates import *
-from gc import *
+#  import gcx 
 from rnatools import *
+from gcx import *
+
+print(GC())
+
+#  print(gcx.GC)
 
 class Scanner:
     def __init__(self, config):
