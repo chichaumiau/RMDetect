@@ -11,11 +11,19 @@ import os
 import sys
 import time
 
-import lib.candidates as candidates
-import lib.config as config
-import lib.results as results
-import lib.scanner as scanner
-import lib.sequences as sequences
+sys.path.append('./lib/')
+
+import candidates
+import config
+import results
+import scanner
+import sequences
+
+#  import lib.candidates as candidates
+#  import lib.config as config
+#  import lib.results as results
+#  import lib.scanner as scanner
+#  import lib.sequences as sequences
 
 last_cand = 0   
 
