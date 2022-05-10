@@ -1,0 +1,20 @@
+<gcx.GC instance at 0x7f94f016ed20>
+#- - - - - - - - - - - - - - - - - - - - - - - - - - -
+#
+# script: rmdetect.py
+# parameters:
+#	--data-path
+#	models
+#	examples/lysine/lys.stk
+#
+# scan started at:     Tue May 10 15:46:12 2022
+# scan ended at:       Tue May 10 15:47:21 2022
+# total running time:  68 s
+#- - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# meta data:
+##seq_file = examples/lysine/lys.stk
+##both_strands = NO
+##sequences = 49
+##tests_all = 6952022
+##tests_pairs = 0
