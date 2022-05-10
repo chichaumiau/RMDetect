@@ -1,3 +1,4 @@
+<gcx.GC instance at 0x7fd58005ed20>
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 #
 # script: rmdetect.py
@@ -6,8 +7,8 @@
 #	models
 #	examples/lysine/lys.seq
 #
-# scan started at:     Fri Jun 30 23:28:48 2017
-# scan ended at:       Fri Jun 30 23:28:50 2017
+# scan started at:     Tue May 10 15:51:25 2022
+# scan ended at:       Tue May 10 15:51:26 2022
 # total running time:  1 s
 #- - - - - - - - - - - - - - - - - - - - - - - - - - -
 

@@ -3,11 +3,19 @@
 import optparse
 import sys
 
-import lib.candidates as candidates
-import lib.config as config
-import lib.outputs as outputs
-import lib.results as results
-import lib.sequences as sequences
+sys.path.append('./lib/')
+
+import candidates
+import config
+import results
+import scanner
+import sequences
+
+#  import lib.candidates as candidates
+#  import lib.config as config
+#  import lib.outputs as outputs
+#  import lib.results as results
+#  import lib.sequences as sequences
     
 #
 # *** MAIN ***
