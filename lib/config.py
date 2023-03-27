@@ -8,15 +8,15 @@ from model_parser import *
 from evalues import *
 
 # try to import psyco
-try:
-    import psyco
-    psyco.full()
+# ~try:
+    # ~import psyco
+    # ~psyco.full()
 
-except ImportError:
-    sys.stderr.write( "'Psyco' package not found. Using 'Psyco' is much faster!\n" )
+# ~except ImportError:
+    # ~sys.stderr.write( "'Psyco' package not found. Using 'Psyco' is much faster!\n" )
 
 class Config:
-    VERSION = "0.0.3"
+    VERSION = "0.0.6"
     ENV_DATA_PATH = "RMDETECT_DATA"
     
     MODEL_SUFFIX = "model"
@@ -98,23 +98,20 @@ class Config:
         # 
         mparser = ModelParser()
         eparser = EValuesParser()
-        
         if( not os.path.isdir( self.data_path ) ):
             sys.stderr.write( "ERROR: defined data_path directory '%s' doesn't exist!\n" %self.data_path )
             quit()
-
         flist = os.listdir( self.data_path )
-        
         sys.stderr.write( "Loading models from: '%s' " %self.data_path )
         sys.stderr.flush()
         
         included = []
         excluded = []
-        
         for f in flist:
             if( f.endswith( self.MODEL_SUFFIX ) ):
                 sys.stderr.write( "." )
                 sys.stderr.flush()
+                # ~print( "===%s/%s" %(self.data_path, f) )
 
                 model = mparser.parse( "%s/%s" %(self.data_path, f) )
                 
@@ -140,4 +137,4 @@ class Config:
         sys.stderr.write(   "Excluded models:  %s\n" %", ".join( excluded ) )
 
         if( len(self.models) == 0 ):
-            print "WARNING: No models read from '%s'\n" %(self.data_path)
+            print("WARNING: No models read from '%s'\n" %(self.data_path))

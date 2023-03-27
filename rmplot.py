@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import optparse
-import psyco
+# ~import psyco
 
 import cmotif_scanner3.lib.candidates as candidates
 import cmotif_scanner3.lib.config as config
@@ -14,7 +14,7 @@ import cmotif_scanner3.lib.sequences as sequences
 # *** MAIN ***
 #
 
-psyco.full()
+# ~psyco.full()
 
 #
 # Read command line options

@@ -123,4 +123,4 @@ if __name__ == '__main__':
     mca.load( "/media/Elements/3-PHD/resources/structures/mcannotate/1A3M.pdb", "/media/Elements/3-PHD/resources/structures/mcannotate" )
     
     for entry in mca.interactions:
-        print entry
+        print(entry)

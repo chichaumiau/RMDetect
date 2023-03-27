@@ -24,12 +24,15 @@ class Model:
         self.sep_max = sep_max
         self.symmetric = symmetric
         
+        # ~for node in nodes:
+            # ~print(node.conds)
+        
         if( order is None ):
             self.__init_order()
         else:
             self.order = []
             for id in order:
-                self.order.append( filter( lambda n: n.id == id, self.nodes )[0] )
+                self.order.append( list(filter( lambda n: n.id == id, self.nodes ))[0] )
         
         # TODO: remove this line!!
         #self.__init_order()
@@ -45,6 +48,7 @@ class Model:
         self.pairs_list = []
         
         self.__init_offsets()
+        
         self.__init_pairing_list()
         self.__init_search_nodes()
         
@@ -68,7 +72,7 @@ class Model:
             
             self.explode( config, n, seq, prob )
         elif( n == len(self.order) ):
-            print "".join( seq ),  (prob - limit) / math.log(2.0)
+            print("".join( seq ),  (prob - limit) / math.log(2.0))
         else:
             node = self.order[n]
             
@@ -151,7 +155,8 @@ class Model:
 
     def __init_offsets(self):
         # build the first offset
-        self.OFFSETS = [[range(self.chains_length[i]) for i in xrange(self.chains_count)]]
+        # ~self.OFFSETS = [[range(self.chains_length[i]) for i in xrange(self.chains_count)]]
+        self.OFFSETS = [[list(range(self.chains_length[i])) for i in range(self.chains_count)]]
         
         # go through each node positions
         for node in self.nodes:
@@ -164,7 +169,8 @@ class Model:
                     new_offset = copy.deepcopy( offset )
                     new_offsets.append( new_offset )
                     
-                    for i in xrange( len(new_offset[node.chain])-1, node.ndx, -1 ):
+                    # ~for i in xrange( len(new_offset[node.chain])-1, node.ndx, -1 ):
+                    for i in range( len(new_offset[node.chain])-1, node.ndx, -1 ):
                         new_offset[node.chain][i] = new_offset[node.chain][i-1]
                     
                     new_offset[node.chain][node.ndx] = None
@@ -173,24 +179,26 @@ class Model:
                 self.OFFSETS.extend( new_offsets )
         
         self.count = len(self.OFFSETS)
-        
+
     # prepare a list of all mandatory pairing positions in all gap combinations allowed by the model
     def __init_pairing_list(self):
         self.pairs_list = set()
         
+        # ~print(self.OFFSETS)
+        
         for offset in self.OFFSETS:
             pairs = []
-            
+            # ~print(self.pairing)
             for pair in self.pairing:
                 n1 = self.nodes[pair.id1]
                 n2 = self.nodes[pair.id2]
                 
                 p = (n1.chain, offset[n1.chain][n1.ndx], n2.chain, offset[n2.chain][n2.ndx], pair.ptype)
-                
+                # ~print(p)
                 if( p[1] is None or p[3] is None ):
-                    print "\nERROR: Canonical pairs should not allow gaps."
-                    print "       Check the pairing (%d, %d)" %(pair.id1, pair.id2)
-                    print "       Check the probabilities of pairing nodes"
+                    print("\nERROR: Canonical pairs should not allow gaps.")
+                    print("       Check the pairing (%d, %d)" %(pair.id1, pair.id2))
+                    print("       Check the probabilities of pairing nodes")
                     quit()
 
                 pairs.append( p )

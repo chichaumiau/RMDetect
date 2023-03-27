@@ -63,7 +63,7 @@ class EValuesParser:
                     
                     gc_class = {}
                     
-                    for i in xrange(1, len(data), 2):
+                    for i in range(1, len(data), 2):
                         gc_class[data[i]] = float(data[i+1])
                     
                     result.gc_classes.append( gc_class )
@@ -72,7 +72,7 @@ class EValuesParser:
                 elif( state == READ_EVALUES ):
                     data = line.split()
                     
-                    for i in xrange(1, len(data)):
+                    for i in range(1, len(data)):
                         result.gc_values[i-1][data[0]] = float(data[i])
                         
             # TODO: check if the scores are increasing 0.1

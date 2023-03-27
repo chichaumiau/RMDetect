@@ -80,8 +80,8 @@ class ModelParser:
             self.name = data[1]
             self.version = data[2]
         else:
-            print "ERROR: syntax error parsing NAME in line %d" %count
-            print "       in file %s" %self.ifile
+            print("ERROR: syntax error parsing NAME in line %d" %count)
+            print("       in file %s" %self.ifile)
             quit()
 
     def parse_ref_seqs(self, line, count):
@@ -90,8 +90,8 @@ class ModelParser:
         if( len(data) > 1 ):
             self.ref_seqs = data[1:]
         else:
-            print "ERROR: syntax error parsing REF_SEQ in line %d" %count
-            print "       in file %s" %self.ifile
+            print("ERROR: syntax error parsing REF_SEQ in line %d" %count)
+            print("       in file %s" %self.ifile)
             quit()
 
     def parse_data_source(self, line, count):
@@ -99,14 +99,14 @@ class ModelParser:
 
         if( len(data) > 1 ):
             if( not os.path.isfile( data[-1] ) ):
-                print "ERROR: alignment file %s not found in line %d" %(data[-1], count)
-                print "       in file %s" %self.ifile
+                print("ERROR: alignment file %s not found in line %d" %(data[-1], count))
+                print("       in file %s" %self.ifile)
                 quit()
             
             self.data_sources.append( ModelDefinitionDataSource( data[-1], data[1:-1] ) )
         else:
-            print "ERROR: syntax error parsing DATA_SOURCE in line %d" %count
-            print "       in file %s" %self.ifile
+            print("ERROR: syntax error parsing DATA_SOURCE in line %d" %count)
+            print("       in file %s" %self.ifile)
             quit()
 
     def parse_node(self, line, count):
@@ -118,7 +118,8 @@ class ModelParser:
             if( data[4] == "-" ):
                 conds = None
             else:
-                conds = map( int, data[4].split( "," ) )
+                # ~conds = map( int, data[4].split( "," ) )
+                conds = list(map( int, data[4].split( "," ) ))
             
             # enforces the order and sequentiality of node ids
             next_id = len(self.nodes)
@@ -126,12 +127,12 @@ class ModelParser:
             if( next_id == id ):
                 self.nodes.append( Node( id, chain, pos, conds ) )
             else:
-                print "ERROR: missing node id %d in line %d" %(next_id, count)
-                print "       in file %s" %self.ifile
+                print("ERROR: missing node id %d in line %d" %(next_id, count))
+                print("       in file %s" %self.ifile)
                 quit()
         else:
-            print "ERROR: syntax error parsing NODE in line %d" %count
-            print "       in file %s" %self.ifile
+            print("ERROR: syntax error parsing NODE in line %d" %count)
+            print("       in file %s" %self.ifile)
             quit()
             
     def parse_prob(self, line, count):
@@ -157,8 +158,8 @@ class ModelParser:
             self.nodes[id].probs[data[2]] = dict
             
         else:
-            print "ERROR: syntax error parsing PROB in line %d" %count
-            print "       in file %s" %self.ifile
+            print("ERROR: syntax error parsing PROB in line %d" %count)
+            print("       in file %s" %self.ifile)
             quit()
         
     def parse_pairs(self, line, count):
@@ -168,8 +169,8 @@ class ModelParser:
             (id1, id2) = map( int, data[1:3] )
             self.pairing.append( Pair( id1, id2, self.ptypes[data[3]] ) )
         else:
-            print "ERROR: syntax error in parsing PAIRS line %d" %count
-            print "       in file %s" %self.ifile
+            print("ERROR: syntax error in parsing PAIRS line %d" %count)
+            print("       in file %s" %self.ifile)
             quit()
 
     def parse_strands(self, line, count):
@@ -181,8 +182,8 @@ class ModelParser:
 
             self.strands.append( Strands( A, B, C, D ) )
         else:
-            print "ERROR: syntax error parsing STRANDS in line %d" %count
-            print "       in file %s" %self.ifile
+            print("ERROR: syntax error parsing STRANDS in line %d" %count)
+            print("       in file %s" %self.ifile)
             quit()
 
     def parse_order(self, line, count):
@@ -191,8 +192,8 @@ class ModelParser:
         if( len(data) == (len(self.nodes) + 1) ):
             self.order = map( int, data[1:] )
         else:
-            print "ERROR: ORDER declaration has %d nodes. Expected %d nodes. In line %d" %(len(data)-1, len(self.nodes), count)
-            print "       in file %s" %self.ifile
+            print("ERROR: ORDER declaration has %d nodes. Expected %d nodes. In line %d" %(len(data)-1, len(self.nodes), count))
+            print("       in file %s" %self.ifile)
             quit()
 
     def parse_no_pairing(self, line, count):
@@ -213,8 +214,8 @@ class ModelParser:
             if( data[2] != "-" ):
                 self.sep_max = int(data[2])
         else:
-            print "ERROR: syntax error parsing SEPARATION in line %d" %count
-            print "       in file %s" %self.ifile
+            print("ERROR: syntax error parsing SEPARATION in line %d" %count)
+            print("       in file %s" %self.ifile)
             quit()
 
 

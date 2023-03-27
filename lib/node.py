@@ -1,4 +1,4 @@
-import math
+import math, sys
 
 class Node:
     def __init__(self, id, chain, ndx, conds, probs=None):
@@ -28,7 +28,7 @@ class Node:
         gap = False
         
         for (k, v) in self.probs.items():
-            if( (v != "GC") and v.has_key( "." ) ):
+            if( (v != "GC") and ( "." in v.keys()) ):
                 gap = True
                 break
 
@@ -70,18 +70,22 @@ class NodeSearch( Node ):
             if( len(offsets) == 1 ):
                 self.min_dists = []
                 
-                for i in xrange(len(offsets[0])):
-                    max_i = max(offsets[0][i])
+                for i in range(len(offsets[0])):
                     
-                    for j in xrange(len(offsets[0])):
+                    max_i = max([j for j in offsets[0][i] if j!=None])
+                    
+                    for j in range(len(offsets[0])):
                         if( i != j ):
                             self.min_dists.append( (i, j, max_i + self.model.sep_min ) )
             
             # if this node depends on parents
+
             if( not self.conds is None ):
+
                 self.parents = [None] * len(self.conds)
+
                 self.get_parents( self.conds, self.parents )
-                
+                # ~print(self.parents)
                 if( None in self.parents ):
                     sys.stderr.write( "NodeSearch.__init__() > ERROR > Unresolved parents in node '%d'\n" %(self.id) )
                     quit()
@@ -117,7 +121,7 @@ class NodeSearch( Node ):
 
     def show_all(self):
         if( self.level < 0 ):
-            print "ROOT"
+            print("ROOT")
         else:
             self.show_node()
         
@@ -126,28 +130,32 @@ class NodeSearch( Node ):
 
     def show_node(self):
         if( self.level < 0 ):
-            print "ROOT"
+            print("ROOT")
         else:
-            print self.ident(), "-+ NODE -> id: %d, chain:%d, ndx:%d, oft:%s" %(self.id, self.chain, self.ndx, str(self.oft))
+            print(self.ident(), "-+ NODE -> id: %d, chain:%d, ndx:%d, oft:%s" %(self.id, self.chain, self.ndx, str(self.oft)))
             
             if( len(self.parents) > 0 ):
-                print self.ident(), "  ** PARENTS: ",
+                print(self.ident(), "  ** PARENTS: ",)
                 for p in self.parents:
-                    print p.id,
+                    print(p.id,)
                 print
     
     def get_parents(self, conds, parents):
         # check if this node is root
         if( not self.pred is None ):
-            if( self.id in conds ):
+            # ~print(self.id, list(conds))
+            # ~print(parents)
+            if( self.id in list(conds) ):
                 parents[conds.index( self.id )] = self
 
             self.pred.get_parents( conds, parents )
         
     def get_solution(self):
         # prepare the result
-        seqs = [[""] * self.model.chains_length[c] for c in xrange(self.model.chains_count)]
-        poss = [[0] * self.model.chains_length[c] for c in xrange(self.model.chains_count)]
+        # ~seqs = [[""] * self.model.chains_length[c] for c in xrange(self.model.chains_count)]
+        # ~poss = [[0] * self.model.chains_length[c] for c in xrange(self.model.chains_count)]
+        seqs = [[""] * self.model.chains_length[c] for c in range(self.model.chains_count)]
+        poss = [[0] * self.model.chains_length[c] for c in range(self.model.chains_count)]
 
         # start iteration
         snode = self
@@ -179,7 +187,7 @@ class NodeSearch( Node ):
 
                 if( (d >= 0) and (d < dist) ):
                     if( verbose ):
-                        print "Quit by overlap! expected dist (%d) >= real dist (%d)" %(dist, d)
+                        print("Quit by overlap! expected dist (%d) >= real dist (%d)" %(dist, d))
 
                     return( False ) 
         
@@ -193,9 +201,7 @@ class NodeSearch( Node ):
                 self.NT = "."
             else:
                 self.pos = pointers[self.chain] + self.oft
-                self.NT = sequence[self.pos]
-            
-            #print self.id, self.NT            
+                self.NT = sequence[self.pos]       
             
             # compute the probability associated with this node
             if( self.conds is None ):
@@ -225,18 +231,18 @@ class NodeSearch( Node ):
         ok = False
         
         if( verbose and self.root ):
-            print "START SCAN"
-            print "Model: ", self.model.name, self.model.version 
+            print("START SCAN")
+            print("Model: ", self.model.name, self.model.version )
         if( verbose and not self.root ):
             ident =  "\t" * self.level
-            print ""
-            print ident, "ID:", self.id
-            print ident, "Pos:", self.pos, "nt:", self.NT, "prob_key: ", prob_key, "conditional: ", self.conds
-            print ident, "Local  (log[p])> p_node:", prob_node, ", p_rand:", prob_rand, ", score:", (prob_node - prob_rand) / math.log(2.0)
-            print ident, "Global (log[p])> p_node:", self.prob_node, ", p_rand:", (self.prob_rand + cutoff_correction), ", *SCORE*:", (self.prob_node - self.prob_rand) / math.log(2.0)
-            print ident, "continue?", self.prob_node >= (self.prob_rand + cutoff_correction), "by: ", self.prob_node - (self.prob_rand + cutoff_correction)
+            print("")
+            print(ident, "ID:", self.id)
+            print(ident, "Pos:", self.pos, "nt:", self.NT, "prob_key: ", prob_key, "conditional: ", self.conds)
+            print(ident, "Local  (log[p])> p_node:", prob_node, ", p_rand:", prob_rand, ", score:", (prob_node - prob_rand) / math.log(2.0))
+            print(ident, "Global (log[p])> p_node:", self.prob_node, ", p_rand:", (self.prob_rand + cutoff_correction), ", *SCORE*:", (self.prob_node - self.prob_rand) / math.log(2.0))
+            print(ident, "continue?", self.prob_node >= (self.prob_rand + cutoff_correction), "by: ", self.prob_node - (self.prob_rand + cutoff_correction))
             if( not self.prob_node >= (self.prob_rand + cutoff_correction) ):
-                print ident, "JUMP OFF\n\n"
+                print(ident, "JUMP OFF\n\n")
         
         # if we're above the random model then continue
         if( self.prob_node >= (self.prob_rand + cutoff_correction) ):
@@ -246,7 +252,7 @@ class NodeSearch( Node ):
 
             if( len(self.succs) == 0 ):
                 if( verbose and not self.root ):
-                    print ident, "FINISHING RECURSION!!"
+                    print(ident, "FINISHING RECURSION!!")
 
                 self.succ_best = None
                 self.prob_best = self.prob_node
@@ -254,7 +260,7 @@ class NodeSearch( Node ):
                 ok = True
             else:
                 if( verbose and not self.root ):
-                    print ident, "We still have %d succs" %(len(self.succs))
+                    print(ident, "We still have %d succs" %(len(self.succs)))
 
                 for succ in self.succs:
                     succ_ok = succ.eval( sequence, pointers, GC, unknown_prob, cutoff_correction, verbose )

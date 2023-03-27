@@ -45,7 +45,7 @@ class Fold:
             elif( char == ")" ):
                 self.bpairs.append( i )
                 if( len(stack) == 0 ):
-                    print "Fold.parse() > ERROR: Unexpected ')' in position '%d'" %i
+                    print("Fold.parse() > ERROR: Unexpected ')' in position '%d'" %i)
                     quit()
                     
                 j = stack.pop()
@@ -62,9 +62,9 @@ class Fold:
                 pass
             
             else:
-                print "Fold.parse() > ERROR: Bad character '%s' in position '%d'" %(char, i)
+                print("Fold.parse() > ERROR: Bad character '%s' in position '%d'" %(char, i))
                 quit()
     
         if( len(stack) > 0 ):
-            print "ERROR: Unclosed parenthesis in positions '%s'" %(", ".join( stack ))
+            print("ERROR: Unclosed parenthesis in positions '%s'" %(", ".join( stack )))
             quit()

@@ -75,7 +75,7 @@ class JointProb:
         self.__compute()
         
     def show(self, limit=1E-3, sort_by_value=True):
-        print "P( %s ):" %(", ".join( self.vars ))
+        print("P( %s ):" %(", ".join( self.vars )))
         
         residues = 0.0
         
@@ -97,11 +97,11 @@ class JointProb:
         # show data
         for (k, v) in data:
             if( v > limit ):
-                print ",".join( k ), "== %.4f" %v
+                print(",".join( k ), "== %.4f" %v)
             else:
                 residues += v
         
-        print "residues (< %f): %.6f\n" %(limit, residues)
+        print("residues (< %f): %.6f\n" %(limit, residues))
 
     def __compute(self):
         self.probs = {}
@@ -155,7 +155,7 @@ class MultProb:
         self.__compute()
         
     def show(self, limit=1E-3, sort_by_value=True):
-        print "P( %s ):" %(", ".join( self.vars ))
+        print("P( %s ):" %(", ".join( self.vars )))
         
         residues = 0.0
         
@@ -177,11 +177,11 @@ class MultProb:
         # show data
         for (k, v) in data:
             if( v > limit ):
-                print k, "== %.4f" %v
+                print(k, "== %.4f" %v)
             else:
                 residues += v
         
-        print "residues (< %f): %.6f\n" %(limit, residues)
+        print("residues (< %f): %.6f\n" %(limit, residues))
 
     def __compute(self):
         self.probs = {}
@@ -239,7 +239,7 @@ class CondProb:
         self.__compute()
         
     def show(self, limit=1E-3, sort_by_value=True):
-        print "P( %s | %s ):" %(", ".join( self.vars_a ), ", ".join( self.vars_b ))
+        print("P( %s | %s ):" %(", ".join( self.vars_a ), ", ".join( self.vars_b )))
         
         residues = 0.0
         
@@ -261,11 +261,11 @@ class CondProb:
         # show data
         for (k, v) in data:
             if( v > limit ):
-                print ",".join( k[0] ), "|", ",".join( k[1] ), "== %.4f" %v
+                print(",".join( k[0] ), "|", ",".join( k[1] ), "== %.4f" %v)
             else:
                 residues += v
         
-        print "residues (< %f): %.6f\n" %(limit, residues)
+        print("residues (< %f): %.6f\n" %(limit, residues))
         
     def __compute(self):
         jp_ab = JointProb( self.model, self.vars_a + self.vars_b )
@@ -283,4 +283,4 @@ class CondProb:
             if( jp_b.probs.has_key( k2 ) ):
                 self.probs[kc] = (v / jp_b.probs[k2])
 
-            #print k, "/",  k1, "/", k2, "/", kc, "/", v, "/", jp_b.probs[k2], "/", self.probs[kc]
+            #print(k, "/",  k1, "/", k2, "/", kc, "/", v, "/", jp_b.probs[k2], "/", self.probs[kc])

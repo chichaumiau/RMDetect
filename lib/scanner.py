@@ -5,13 +5,10 @@ import time
 
 #import models
 from candidates import *
-#  import gcx 
 from rnatools import *
 from gcx import *
 
-print(GC())
-
-#  print(gcx.GC)
+# ~print(GC())
 
 class Scanner:
     def __init__(self, config):
@@ -217,11 +214,11 @@ class Scanner:
             return (sum_prob / float(sum_pairs))
 
     def __filter_duplicates(self, cands):
-        for i in xrange(len(cands)):
+        for i in range(len(cands)):
             if( cands[i] is None ):
                 continue
             
-            for j in xrange(i+1, len(cands)):
+            for j in range(i+1, len(cands)):
                 if( cands[j] is None ):
                     continue
 
