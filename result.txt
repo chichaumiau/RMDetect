@@ -1,20 +1,4 @@
-<gcx.GC instance at 0x7fd58005ed20>
-#- - - - - - - - - - - - - - - - - - - - - - - - - - -
-#
-# script: rmdetect.py
-# parameters:
-#	--data-path
-#	models
-#	examples/lysine/lys.seq
-#
-# scan started at:     Tue May 10 15:51:25 2022
-# scan ended at:       Tue May 10 15:51:26 2022
-# total running time:  1 s
-#- - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# meta data:
-##seq_file = examples/lysine/lys.seq
-##both_strands = NO
-##sequences = 1
-##tests_all = 141878
-##tests_pairs = 0
+ERROR: Canonical pairs should not allow gaps.
+       Check the pairing (0, 13)
+       Check the probabilities of pairing nodes

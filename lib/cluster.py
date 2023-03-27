@@ -246,7 +246,7 @@ class ClusterAlgorithm:
             fo = sys.stdout
 
         for (i, cluster) in enumerate(self.clusters):
-            print "Cluster: %5d -> %s" %((i+1), str(cluster))
+            print("Cluster: %5d -> %s" %((i+1), str(cluster)))
 
     def draw_matrix(self, fig_size):
         if( not MPL_INSTALLED ):

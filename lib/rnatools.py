@@ -39,7 +39,7 @@ class RNATools:
         return( bpprobs )
 
     def fold(self, sequence, constraint="", ensemble=False):
-        #~ print sequence
+
         # build the arguments
         args = ["--noPS"]
         
@@ -135,13 +135,11 @@ class RNATools:
         cmds.extend( ensemble and ["-p"] or [] )
         
         input = "\n".join( filter( lambda x: x != "", pre + [const] + post ) )
-        #~ print input
+
         #~sys.stderr.write( input )
-        
         p = sp.Popen( cmds, stdin=sp.PIPE, stdout=sp.PIPE, stderr=sp.PIPE )
-        (out, err) = p.communicate( input )
-        #~ print out
-        #~ print err
+        (out, err) = p.communicate( input.encode() )
+
         #~sys.stderr.write( out )
         #~sys.stderr.write( err )
         
@@ -221,7 +219,7 @@ class RNATools:
         
         for line in out.strip().split( "\n" ):
             if( line.startswith( "WARNING:" ) ):
-                print line
+                print(line)
             elif( expect_sequence ):
                 # ignore, the sequence line
                 expect_sequence = False
@@ -251,7 +249,7 @@ class RNATools:
             else:
                 mfe = 0.0
         else:
-            print "ERROR in output:\n\t'%s'" %line
+            print("ERROR in output:\n\t'%s'" %line)
             quit()
                 
         return( struct, mfe )
@@ -275,70 +273,70 @@ if __name__ == '__main__':
     
     rna = RNATools( )
 
-    print "\nBase pair probabilities (w/o constraints):"
+    print("\nBase pair probabilities (w/o constraints):")
     bpps = rna.bpprobs( seq )
-    print "\t0-20: ", bpps.prob_pair( 0, 20 )
-    print "\t1-19: ", bpps.prob_pair( 1, 19 )
-    print "\t1- 3: ", bpps.prob_pair( 1, 3 )
+    print("\t0-20: ", bpps.prob_pair( 0, 20 ) )
+    print("\t1-19: ", bpps.prob_pair( 1, 19 ) )
+    print("\t1- 3: ", bpps.prob_pair( 1, 3 ) )
     
-    print "\nBase pair probabilities (with constraints):"
+    print("\nBase pair probabilities (with constraints):")
     bpps = rna.bpprobs( seq, cnt )
-    print "\t0-20: ", bpps.prob_pair( 0, 20 )
-    print "\t1-19: ", bpps.prob_pair( 1, 19 )
-    print "\t1- 3: ", bpps.prob_pair( 1, 3 )    
+    print("\t0-20: ", bpps.prob_pair( 0, 20 ) )
+    print("\t1-19: ", bpps.prob_pair( 1, 19 ) )
+    print("\t1- 3: ", bpps.prob_pair( 1, 3 ) )    
     
-    print "\nFold (w/o constrains, w/o ensemble data):"
+    print("\nFold (w/o constrains, w/o ensemble data):")
     fold = rna.fold( seq )
-    print fold.struct
+    print(fold.struct)
 
-    print "\nFold (with constrains, w/o ensemble data):"
+    print("\nFold (with constrains, w/o ensemble data):")
     fold = rna.fold( seq, cnt )
-    print fold.struct
-    print cnt
+    print(fold.struct)
+    print(cnt)
 
-    print "\nFold (w/o constrains, with ensemble data):"
+    print("\nFold (w/o constrains, with ensemble data):")
     fold = rna.fold( seq, ensemble=True )
-    print fold.struct
-    print fold.mfe
+    print(fold.struct)
+    print(fold.mfe)
 
-    print "\nFold (with constrains, with ensemble data):"
+    print("\nFold (with constrains, with ensemble data):")
     fold = rna.fold( seq, cnt, ensemble=True )
-    print fold.struct
-    print cnt
-    print fold.mfe
+    print(fold.struct)
+    print(cnt)
+    print(fold.mfe)
 
-    print "\nAlifold (w/o constrains, w/o ensemble data):"
+    print("\nAlifold (w/o constrains, w/o ensemble data):")
     fold = rna.alifold( aln )
-    print fold.struct
+    print(fold.struct)
 
-    print "\nAlifold (with constrains, w/o ensemble data):"
+    print("\nAlifold (with constrains, w/o ensemble data):")
     fold = rna.alifold( aln, cnt )
-    print fold.struct
-    print cnt
+    print(fold.struct)
+    print(cnt)
 
-    print "\nAlifold (w/o constrains, with ensemble data):"
+    print("\nAlifold (w/o constrains, with ensemble data):")
     fold = rna.alifold( aln, ensemble=True )
-    print fold.struct
-    print fold.mfe
+    print(fold.struct)
+    print(fold.mfe)
 
-    print "\nAlifold (with constrains, with ensemble data):"
+    print("\nAlifold (with constrains, with ensemble data):")
     fold = rna.alifold( aln, cnt, ensemble=True )
-    print fold.struct
-    print cnt
-    print fold.mfe
+    print(fold.struct)
+    print(cnt)
+    print(fold.mfe)
     
-    print "\nSuboptimal folds:"
+    print("\nSuboptimal folds:")
     folds = rna.subopt( seq, 5, temp=20.0 )
     for fold in folds:
-        print fold.struct, fold.mfe
+        print(fold.struct, fold.mfe)
     
-    print "\nEvaluate folds:"
+    print("\nEvaluate folds:")
     for s in aln.values():
         f = rna.fold( s )
-        print s
-        print "Predicted:", f.struct, f.mfe, 
-        rna.eval( s, [f] )
-        print "Evaluated:", f.mfe
+        print(s)
+        print("Predicted:", f.struct, f.mfe, rna.eval( s, [f] ))
         
-    print "\nPlot"
+        print("Evaluated:", f.mfe)
+        
+    print("\nPlot")
     rna.plot( seq, rna.fold( seq ), "test.pdf")

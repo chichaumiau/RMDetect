@@ -10,6 +10,7 @@ import config
 import results
 import scanner
 import sequences
+import outputs
 
 #  import lib.candidates as candidates
 #  import lib.config as config

@@ -126,11 +126,11 @@ class PDBStruct(object):
             # get the positions
             for i in xrange( index.ndx, index.ndx + count ):
                 if( i >= len(self._res_list) ):
-                    print "ERROR", "Bad count %d in coords entry: '%s'" %(count, entry)
+                    print("ERROR", "Bad count %d in coords entry: '%s'" %(count, entry))
                     quit()
                 
                 if( self._res_list[i].chain != chain ):
-                    print "ERROR", "Position %d in coords entry: '%s' is outside the chain" %(i, entry)
+                    print("ERROR", "Position %d in coords entry: '%s' is outside the chain" %(i, entry))
                     quit()
                 
                 res_seq.append( i )
@@ -162,7 +162,7 @@ class PDBStruct(object):
         index = self._res_index.get( Index.key( chain, pos ), None )
         
         if( index is None ):
-            print "ERROR", "Bad index key: '%s'" %Index.key( chain, pos )
+            print("ERROR", "Bad index key: '%s'" %Index.key( chain, pos ))
             quit()
         
         return( index )

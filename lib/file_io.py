@@ -71,7 +71,7 @@ class Stk:
             self.parse_ss()
         
     def add_seq(self, key, sequence):
-        if( not self.index.has_key( key ) ):
+        if( not key in self.index.keys() ):
             # if it's a new key
 
             # update the index
@@ -133,7 +133,7 @@ class Stk:
             # update the index
             self.index = {}
             self.max_key_len = 0
-            for i in xrange( 0, len(self.seqs) ):
+            for i in range( 0, len(self.seqs) ):
                 (k, s) = self.seqs[i]
                 self.index[k] = i
                 self.max_key_len = max( len(k), self.max_key_len )
@@ -299,7 +299,7 @@ class Stk:
                 stacks[i].pop()
                 continue
         
-        for i in xrange(0, len(stacks)):
+        for i in range(0, len(stacks)):
             if( len(stacks[i]) > 0):
                 sys.stderr.write( "Error (sec. struct.) -> Not enough closing chars for '%s'.\n" %Stk.OPEN_STRAND[i] )
                 return False
@@ -389,7 +389,7 @@ class Stk:
                 if( diff > 0 ):
                     self.seqs[i] = (seq[0], seq[1] + (Stk.GAP_STANDARD * diff)) 
             
-            for i in xrange(0, len(self.secondary_structure)):
+            for i in range(0, len(self.secondary_structure)):
                 if( self.secondary_structure[i] in Stk.GAP_ALLOWED ):
                     gap_count = 0 
                     for seq in self.seqs:
@@ -412,7 +412,7 @@ class Stk:
                         if( value != "" ):
                             self.gc_mydata[key] = value[:i] + value[i+1:]   
                     
-                    for j in xrange( 0, len(self.seqs) ):
+                    for j in range( 0, len(self.seqs) ):
                         key = self.seqs[j][0]
                         seq = self.seqs[j][1] 
                         seq = seq[:i] + seq[i+1:]
@@ -505,13 +505,13 @@ class Clustal:
             # update the index
             self.index = {}
             self.max_key_len = 0
-            for i in xrange( 0, len(self.seqs) ):
+            for i in range( 0, len(self.seqs) ):
                 (k, s) = self.seqs[i]
                 self.index[k] = i
                 self.max_key_len = max( len(k), self.max_key_len )
 
     def normalize_sequences(self, gap):
-        for i in xrange( 0, len(self.seqs) ):
+        for i in range( 0, len(self.seqs) ):
             (k, s) = self.seqs[i]
             
             for old_gap in self.GAP_ALLOWED:
@@ -525,17 +525,17 @@ class Clustal:
         consensus = []
         for seq in self.seqs:
             if( len(consensus) == 0 ):
-                consensus = [[] for i in xrange( 0, len(seq[1]) )] 
+                consensus = [[] for i in range( 0, len(seq[1]) )] 
             
             txt += "%s %s\n" %(seq[0].ljust( self.max_key_len ), seq[1].upper())
             
-            for i in xrange(0, len(seq[1])):
+            for i in range(0, len(seq[1])):
                 c = seq[1].upper()[i]
                 if( not c in consensus[i] ):
                     consensus[i].append( c )
         
         consensus = ""
-        for i in xrange(0, len(consensus)):
+        for i in range(0, len(consensus)):
             if( len(consensus[i]) == 1 ):
                 consensus += "*"
             else:
