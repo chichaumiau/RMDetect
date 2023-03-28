@@ -3,7 +3,6 @@ import sys
 
 from pair import *
 from rnatools import *
-
 #
 # auxiliar merge pair function
 #
@@ -170,11 +169,11 @@ class Candidates:
         return( result )
 
     def nooverlap(cands, cback_after_cand=None):
-        for i in xrange(len(cands)):
+        for i in range(len(cands)):
             if( cands[i] is None ):
                 continue
             
-            for j in xrange(i+1, len(cands)):
+            for j in range(i+1, len(cands)):
                 if( cands[j] is None ):
                     continue
 
