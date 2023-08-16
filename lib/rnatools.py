@@ -6,13 +6,13 @@ import os
 import re
 import sys
 
-import interop
-import file_io
+import lib.interop as interop
+import lib.file_io
 
 import subprocess as sp
 
-from folds import *
-from bpprobs import *
+from lib.folds import *
+from lib.bpprobs import *
 
 # TODO: transform all RNAtools' methods in static
 
@@ -34,7 +34,7 @@ class RNATools:
         args = ["-p"]
         
         # call the tool
-        (out, bpprobs) = self.vienna_tool( "RNAfold", args=args, pre=[sequence], const=constraint, bpps=True )
+        (out, bpprobs) = self.vienna_tool( "/Users/aoying/RMBuild/Data/VRP/bin/RNAfold", args=args, pre=[sequence], const=constraint, bpps=True )
         
         return( bpprobs )
 
