@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from rpy import r
+from rpy2.robjects import r
 
 import math
 import optparse
@@ -10,10 +10,10 @@ import time
 
 import lib.config as config
 import lib.scanner as scanner
-import lib.gc as GC
+import lib.gcx as GC
 
 def draw_seq( length ):
-    return( "".join( ["ACGU"[random.randint( 0, 3 )] for i in xrange(length)] ) )
+    return( "".join( ["ACGU"[random.randint( 0, 3 )] for i in range(length)] ) )
 
 def next_seq( length, prev_seq ):
     if( prev_seq == "" ):
@@ -130,12 +130,13 @@ def save_data( ofile, gc_classes, gc_value, scores ):
     
     fo.close()
 
+
 def diff_gc_evalues( gce1, gce2, scores ):
-    gc = len(gce1) / 2
+    gc = len(gce1) // 2
     diff = 0.0
     Atotal = 0.0
     
-    for i in xrange(1, len(scores)):
+    for i in range(1, len(scores)):
         score_a = scores[i-1]
         score_b = scores[i]
         
@@ -153,7 +154,7 @@ def diff_gc_evalues( gce1, gce2, scores ):
             diff += abs(A1-A2)
             Atotal += A1
 
-    return diff/Atotal
+    return diff/Atotal            
 
 #
 # MAIN
@@ -187,7 +188,7 @@ else:
 gc_dict = {}
 evalues = {}
 
-for p in xrange( 1, 10 ):
+for p in range( 1, 10 ):
     gc_dict[p] = GC.GC.specific( float(p) / 10.0 )
     evalues[p] = {}
 
@@ -210,8 +211,8 @@ for model in config.models:
     if( model.full_name().upper() == MODEL_IN ):
         found_model = True
         
-        print "computing e-values table for '%s' model" %model.name
-        print "saving results on '%s'" %FILE_OUT
+        print ("computing e-values table for '%s' model" %model.name)
+        print ("saving results on '%s'" %FILE_OUT)
         
         L = len(model.nodes)
         
@@ -222,16 +223,16 @@ for model in config.models:
         
         gc_classes = GC.GC.get_classes(resolution=5, min_p=15, max_p=85)
         
-        gc_hists = [{} for i in xrange(len(gc_classes))]
+        gc_hists = [{} for i in range(len(gc_classes))]
         gc_evalue_last = None
         
         pointers = [0, model.chains_length[0] + len(SPACER)]
         
-        print "total sampling space: %d" %sample_space
-        print "data points to sample: %d" %sample_count
+        print ("total sampling space: %d" %sample_space)
+        print ("data points to sample: %d" %sample_count)
         
         s = ""
-        for count in xrange(min(sample_count, sample_space) ):
+        for count in range(min(sample_count, sample_space) ):
             # for safety, save the entire data every 'n' iteractions
             if( (count % N_SAVE == 0) and (count > 0) ):
                 # compute the evalues of the sample so far
@@ -243,13 +244,13 @@ for model in config.models:
                 diff = 0.0
                 if( gc_evalue_last is not None ):
                     diff = diff_gc_evalues( gc_evalue_last, gc_evalue, scores )
-
+                    
                     if( diff < 0.001 ):
                         # IF the difference between this sample and the last one is less than 1/1000
                         sample_diff_count += N_SAVE
                         # stop when, after adding more than 100000 data points the difference is less than 1/1000
                         if( sample_diff_count > 100000 ):
-                            print "\nConverged after %d simulations" %count
+                            print ("\nConverged after %d simulations" %count)
                             break
                     else:
                         # ELSE reset the counter
@@ -297,4 +298,4 @@ for model in config.models:
         save_data( FILE_OUT, gc_classes, gc_evalue, scores )
     
 if( not found_model ):
-    print "WARNING: model '%s' not found" %MODEL_IN
+    print ("WARNING: model '%s' not found" %MODEL_IN)
