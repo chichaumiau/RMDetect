@@ -114,15 +114,15 @@ class Analysis:
 
         (mcc, tpr, fpr, tnr, fdr) = Analysis.__calc_stats( tp, fp, tn, fn )
         
-        print "TP: %d, FP: %d, TN: %d, FN: %d" %(tp, fp, tn, fn)
-        print "MCC: %.3f" %(mcc)
-        print "TPR (sensitivity): %.3f" %tpr
-        print "TNR (specificity): %.3f" %tnr
-        print "FPR:               %.3f" %fpr
-        print "FDR:               %.3f" %fdr
+        print ("TP: %d, FP: %d, TN: %d, FN: %d" %(tp, fp, tn, fn))
+        print ("MCC: %.3f" %(mcc))
+        print ("TPR (sensitivity): %.3f" %tpr)
+        print ("TNR (specificity): %.3f" %tnr)
+        print ("FPR:               %.3f" %fpr)
+        print ("FDR:               %.3f" %fdr)
         
-        print "\n#   TP\tFP\tTN\tFN\tMCC\tTPR\tTNR\tFPR\tFDR"
-        print "#OL: %d\t%d\t%d\t%d\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f" %(tp, fp, tn, fn, mcc, tpr, tnr, fpr, fdr)
+        print ("\n#   TP\tFP\tTN\tFN\tMCC\tTPR\tTNR\tFPR\tFDR")
+        print ("#OL: %d\t%d\t%d\t%d\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f" %(tp, fp, tn, fn, mcc, tpr, tnr, fpr, fdr))
 
         # plots the candidates values
         dx = (xlim[1]-xlim[0]) * 0.10
@@ -190,7 +190,7 @@ class Analysis:
                             positive = True
                             break
                 
-                print "D\t%10s\t%5s\t%7.3f\t%5.3f" %(model_name, positive, cand.bpp, cand.score)
+                print ("D\t%10s\t%5s\t%7.3f\t%5.3f" %(model_name, positive, cand.bpp, cand.score))
                     
     #
     #
@@ -202,14 +202,14 @@ class Analysis:
         clist = []
         positive_real_keys = set()
         
-        scores_p = [[] for i in xrange(len(col_pairs))]
+        scores_p = [[] for i in range(len(col_pairs))]
         scores_n = []
-        bpps_p = [[] for i in xrange(len(col_pairs))]
+        bpps_p = [[] for i in range(len(col_pairs))]
         bpps_n = []
         
-        print "Positives (cols):"
-        print "\t%s" %", ".join( map( lambda cp: "(%d-%d)" %(cp[0], cp[1]), col_pairs ) )
-        print ""
+        print ("Positives (cols):")
+        print ("\t%s" %", ".join( map( lambda cp: "(%d-%d)" %(cp[0], cp[1]), col_pairs ) ))
+        print ("")
 
         for cand in cands:
             # check if the candidate belongs to the model of interest
@@ -268,9 +268,9 @@ class Analysis:
         step_x = (xlim[1] - xlim[0]) / float(steps)
         step_y = (ylim[1] - ylim[0]) / float(steps)
         
-        plot_data = np.array([[0.0] * steps for i in xrange( steps )])
-        plot_xx = np.array([[0.0] * steps for i in xrange( steps )])
-        plot_yy = np.array([[0.0] * steps for i in xrange( steps )])
+        plot_data = np.array([[0.0] * steps for i in range( steps )])
+        plot_xx = np.array([[0.0] * steps for i in range( steps )])
+        plot_yy = np.array([[0.0] * steps for i in range( steps )])
         
         sts_max = 0.0
         sts_coords = (0.0, 0.0, 0.0, 0.0)
@@ -333,39 +333,39 @@ class Analysis:
         
         sys.stderr.write( "%sDONE%s\n" %("\b" * 80, " " * 80) )
         
-        print "Best %s: %.3f" %(stats, sts_max)
-        print "\t%s = %.3f" %(x_feature, sts_coords[2])
-        print "\t%s = %.3f" %(y_feature, sts_coords[3])
+        print ("Best %s: %.3f" %(stats, sts_max))
+        print ("\t%s = %.3f" %(x_feature, sts_coords[2]))
+        print ("\t%s = %.3f" %(y_feature, sts_coords[3]))
         
         (tp, fp, tn, fn, mcc, tpr, fpr, tnr, fdr) = stats_max
-        print "\nStatistics of the best MCC:" 
-        print "\tTP: %d, FP: %d, TN: %d, FN: %d" %(tp, fp, tn, fn)
-        print "\tMCC: %.3f" %(mcc)
-        print "\tTPR (sensitivity): %.3f" %tpr
-        print "\tTNR (specificity): %.3f" %tnr
-        print "\tFPR:               %.3f" %fpr
-        print "\tFDR:               %.3f" %fdr
+        print ("\nStatistics of the best MCC:" )
+        print ("\tTP: %d, FP: %d, TN: %d, FN: %d" %(tp, fp, tn, fn))
+        print ("\tMCC: %.3f" %(mcc))
+        print ("\tTPR (sensitivity): %.3f" %tpr)
+        print ("\tTNR (specificity): %.3f" %tnr)
+        print ("\tFPR:               %.3f" %fpr)
+        print ("\tFDR:               %.3f" %fdr)
 
-        print "\n#OL: %d\t%d\t%d\t%d\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f" %(tp, fp, tn, fn, mcc, tpr, tnr, fpr, fdr)
+        print ("\n#OL: %d\t%d\t%d\t%d\t%.3f\t%.3f\t%.3f\t%.3f\t%.3f" %(tp, fp, tn, fn, mcc, tpr, tnr, fpr, fdr))
 
-        print "\n#Negative scores -> mean=%7.3f, sd=%7.3f" %(R.mean( scores_n ), R.sd( scores_n )),
-        print "99%%=%7.3f" %R.quantile( scores_n, (0.01) )['1%'],
-        print "95%%=%7.3f" %R.quantile( scores_n, (0.05) )['5%'],
-        print "90%%=%7.3f" %R.quantile( scores_n, (0.10) )['10%']
+        print ("\n#Negative scores -> mean=%7.3f, sd=%7.3f" %(R.mean( scores_n ), R.sd( scores_n )),)
+        print ("99%%=%7.3f" %R.quantile( scores_n, (0.01) )['1%'],)
+        print ("95%%=%7.3f" %R.quantile( scores_n, (0.05) )['5%'],)
+        print ("90%%=%7.3f" %R.quantile( scores_n, (0.10) )['10%'])
         
         for (i, cols) in enumerate(col_pairs):
-            print "#Positive scores %12s -> N=%5d, mean=%7.3f, sd=%7.3f" %(str(cols), len(scores_p[i]), R.mean( scores_p[i] ), R.sd( scores_p[i] )),
-            print "99%%=%7.3f" %R.quantile( scores_p[i], (0.01) )['1%'],
-            print "95%%=%7.3f" %R.quantile( scores_p[i], (0.05) )['5%'],
-            print "90%%=%7.3f" %R.quantile( scores_p[i], (0.10) )['10%']
+            print ("#Positive scores %12s -> N=%5d, mean=%7.3f, sd=%7.3f" %(str(cols), len(scores_p[i]), R.mean( scores_p[i] ), R.sd( scores_p[i] )),)
+            print ("99%%=%7.3f" %R.quantile( scores_p[i], (0.01) )['1%'],)
+            print ("95%%=%7.3f" %R.quantile( scores_p[i], (0.05) )['5%'],)
+            print ("90%%=%7.3f" %R.quantile( scores_p[i], (0.10) )['10%'])
 
-        print "\n#Negative bpps -> mean=%7.3f, sd=%7.3f" %(R.mean( bpps_n ), R.sd( bpps_n ))
+        print ("\n#Negative bpps -> mean=%7.3f, sd=%7.3f" %(R.mean( bpps_n ), R.sd( bpps_n )))
 
         for (i, cols) in enumerate(col_pairs):
-            print "#Positive bpps %12s -> N=%5d, mean=%7.3f, sd=%7.3f" %(str(cols), len(bpps_p[i]), R.mean( bpps_p[i] ), R.sd( bpps_p[i] )),
-            print "99%%=%7.3f" %R.quantile( bpps_p[i], (0.01) )['1%'],
-            print "95%%=%7.3f" %R.quantile( bpps_p[i], (0.05) )['5%'],
-            print "90%%=%7.3f" %R.quantile( bpps_p[i], (0.10) )['10%']
+            print ("#Positive bpps %12s -> N=%5d, mean=%7.3f, sd=%7.3f" %(str(cols), len(bpps_p[i]), R.mean( bpps_p[i] ), R.sd( bpps_p[i] )),)
+            print ("99%%=%7.3f" %R.quantile( bpps_p[i], (0.01) )['1%'],)
+            print ("95%%=%7.3f" %R.quantile( bpps_p[i], (0.05) )['5%'],)
+            print ("90%%=%7.3f" %R.quantile( bpps_p[i], (0.10) )['10%'])
 
         if( not no_fig ):
             R.split_screen( R.c(len(col_pairs), 1) )
@@ -428,9 +428,9 @@ class Analysis:
                 data[0].append( x )
                 data[1].append( y )
         
-        print "%s: mean=%.3f; sd=%.3f" %(x_feature, R.mean(np.array(data[0])), R.sd(np.array(data[0])))
-        print "%s: mean=%.3f; sd=%.3f" %(y_feature, R.mean(np.array(data[1])), R.sd(np.array(data[1])))
-        print
+        print ("%s: mean=%.3f; sd=%.3f" %(x_feature, R.mean(np.array(data[0])), R.sd(np.array(data[0]))))
+        print ("%s: mean=%.3f; sd=%.3f" %(y_feature, R.mean(np.array(data[1])), R.sd(np.array(data[1]))))
+       
         
         # plots the candidates values
         dx = (xlim[1]-xlim[0]) * 0.10
@@ -481,9 +481,9 @@ class Analysis:
         pair_count = len(model.pairing)
 
         counts = [0.0] * pair_count
-        dicts_x = [{} for n in xrange(pair_count)]
-        dicts_y = [{} for n in xrange(pair_count)]
-        dicts_xy = [{} for n in xrange(pair_count)]
+        dicts_x = [{} for n in range(pair_count)]
+        dicts_y = [{} for n in range(pair_count)]
+        dicts_xy = [{} for n in range(pair_count)]
         
         for seq in seqs:
             for (i, pair) in enumerate(model.pairing):
@@ -498,7 +498,7 @@ class Analysis:
                     dicts_xy[i][xy] = dicts_xy[i].get( xy, 0.0 ) + 1.0
 
         total_mi = 0.0
-        for i in xrange(pair_count):
+        for i in range(pair_count):
             mi = 0.0
             
             for x in "ACGU":
@@ -522,7 +522,7 @@ class Analysis:
         pair_count = len(model.pairing)
 
         counts = [0.0] * pair_count
-        dicts_xy = [{} for n in xrange(pair_count)]
+        dicts_xy = [{} for n in range(pair_count)]
         
         for seq in seqs:
             for (i, pair) in enumerate(model.pairing):
@@ -534,7 +534,7 @@ class Analysis:
 
         max_h = math.log( 1.0/6.0, 2.0 ) * float(pair_count)
         total_h = 0.0
-        for i in xrange(pair_count):
+        for i in range(pair_count):
             h = 0.0
             
             for (xy, freq) in dicts_xy[i].items():
@@ -583,11 +583,11 @@ class Analysis:
         # initially each point (r, c) belongs to its own cluster
         sys.stderr.write( "\tClustering %d points\n" %len(mcands) )
         
-        for i in xrange(len(clusters)):
+        for i in range(len(clusters)):
             if( clusters[i] is None ):
                 continue
             
-            for j in xrange(i+1, len(clusters)):
+            for j in range(i+1, len(clusters)):
                 if( clusters[j] is None ):
                     continue
                 
@@ -633,26 +633,26 @@ class Analysis:
             avg_bpp = avg_bpp / len(cluster_cands)
             
             if( perc >= 0.01 ):
-                print "Cluster ->\tseqs:%6d\t%6.3f\t%%\tavg_score:\t%6.3f\tavg_bpp:\t%6.3f:" %(len(cluster_cands), perc*100.0, avg_score, avg_bpp)
+                print ("Cluster ->\tseqs:%6d\t%6.3f\t%%\tavg_score:\t%6.3f\tavg_bpp:\t%6.3f:" %(len(cluster_cands), perc*100.0, avg_score, avg_bpp))
                 
                 #for k in cluster:
                 #    print k,
                 
                 #print 
                 for cand in cluster_cands:
-                    print cand
-                    print "\t%s" %(str(cand), ["".join( s ) for s in cand.chains_seqs])
+                    print (cand)
+                    print ("\t%s" %(str(cand), ["".join( s ) for s in cand.chains_seqs]))
                     
         sys.stderr.write( "Building the matrix\n" )
         
         # Decide weather to show the graphic or not
         # Maximum matrix 500 x 500
-        print min_col, max_col, out_file, no_fig
+        print (min_col, max_col, out_file, no_fig)
         
         if( (max_col < 1000) and (not ((out_file is None) and (no_fig))) ):
-            plot_data = np.array([[0.0] * max_col for r in xrange( max_col )])
-            plot_xx = np.array([[r for c in xrange( max_col )] for r in xrange( max_col )])
-            plot_yy = np.array([[c for c in xrange( max_col )] for r in xrange( max_col )])
+            plot_data = np.array([[0.0] * max_col for r in range( max_col )])
+            plot_xx = np.array([[r for c in range( max_col )] for r in range( max_col )])
+            plot_yy = np.array([[c for c in range( max_col )] for r in range( max_col )])
 
             #for cluster in clusters:
             #    total = 0
@@ -725,13 +725,13 @@ class Analysis:
             sys.stderr.flush()
             merged = False
             
-            for i in xrange(len(clusters)):
+            for i in range(len(clusters)):
                 if( i % 100 == 0 ):
                     sys.stderr.write( "*" )
                     sys.stderr.flush()
                 
                 if( not clusters[i] is None ):
-                    for j in xrange(i+1, len(clusters)):
+                    for j in range(i+1, len(clusters)):
                         if( (not clusters[j] is None) and (clusters[i].is_close( clusters[j], MARGIN )) ):
                             clusters[i].merge( clusters[j] )
                             clusters[j] = None
@@ -755,12 +755,12 @@ class Analysis:
             if( perc >= 0.05 ):
                 cluster_count += 1
                 #print "Cluster %d -> seqs: %6d %6.2f %% avg_score: %7.3f %7.3f avg_bpp: %5.3f %5.3f MI: %7.3f coords: %4d - %4d / %6d" %(cluster_count, len(cluster_cands), perc*100.0, avg_score, sd_score, avg_bpp, sd_bpp, mutual_info, max_coords[0], max_coords[1], max_count)
-                print "Cluster %d -> seqs: %6d %6.2f %% avg_score: %7.3f avg_bpp: %5.3f MI: %7.3f coords: %4d - %4d / %6d" %(cluster_count, count, perc*100.0, avg_score, avg_bpp, mi, rep_row, rep_col, rep_count)
+                print ("Cluster %d -> seqs: %6d %6.2f %% avg_score: %7.3f avg_bpp: %5.3f MI: %7.3f coords: %4d - %4d / %6d" %(cluster_count, count, perc*100.0, avg_score, avg_bpp, mi, rep_row, rep_col, rep_count))
                 
                 for (key, cand) in cluster.cands.items():
-                    print "\t%s" %str(cand)
+                    print ("\t%s" %str(cand))
                     
-                print "-----------------------------------------------"
+                print ("-----------------------------------------------")
                 
         sys.stderr.write( "DONE with the clusters\n" )
             
@@ -769,9 +769,9 @@ class Analysis:
         if( (max_col < 1000) and (not ((out_file is None) and (no_fig))) ):
             sys.stderr.write( "Building the matrix\n" )
             
-            plot_data = np.array([[0.0] * max_col for r in xrange( max_col )])
-            plot_xx = np.array([[r for c in xrange( max_col )] for r in xrange( max_col )])
-            plot_yy = np.array([[c for c in xrange( max_col )] for r in xrange( max_col )])
+            plot_data = np.array([[0.0] * max_col for r in range( max_col )])
+            plot_xx = np.array([[r for c in range( max_col )] for r in range( max_col )])
+            plot_yy = np.array([[c for c in range( max_col )] for r in range( max_col )])
 
             for ((row, col), perc) in cluster_data.items():
                 plot_data[row][col] = perc
@@ -829,9 +829,9 @@ class Analysis:
         # clusters the positions
         sys.stderr.write( "\tClustering %d positions\n" %len(mcands) )
         
-        for i in xrange(len(clusters)):
+        for i in range(len(clusters)):
             if( not clusters[i] is None ):
-                for j in xrange(i+1, len(clusters)):
+                for j in range(i+1, len(clusters)):
                     if( not clusters[j] is None ):
                         drop_out = False
                         for (ri, ci) in clusters[i]:
@@ -892,16 +892,16 @@ class Analysis:
                         max_count = len(mcands[(row, col)])  
 
                 #print "Cluster %d -> seqs: %6d %6.2f %% avg_score: %7.3f %7.3f avg_bpp: %5.3f %5.3f MI: %7.3f coords: %4d - %4d / %6d" %(cluster_count, len(cluster_cands), perc*100.0, avg_score, sd_score, avg_bpp, sd_bpp, mutual_info, max_coords[0], max_coords[1], max_count)
-                print "Cluster %d -> seqs: %6d %6.2f %% avg_score: %7.3f avg_bpp: %5.3f MI: %7.3f coords: %4d - %4d / %6d" %(cluster_count, len(cluster_cands), perc*100.0, avg_score, avg_bpp, mutual_info, max_coords[0], max_coords[1], max_count)
+                print ("Cluster %d -> seqs: %6d %6.2f %% avg_score: %7.3f avg_bpp: %5.3f MI: %7.3f coords: %4d - %4d / %6d" %(cluster_count, len(cluster_cands), perc*100.0, avg_score, avg_bpp, mutual_info, max_coords[0], max_coords[1], max_count))
                 
-                print ""
-                print s
-                print ""
+                print ("")
+                print (s)
+                print ("")
                 
                 for (key, cand) in cluster_cands.items():
-                    print "\t%s" %str(cand)
+                    print ("\t%s" %str(cand))
                     
-                print "-----------------------------------------------"
+                print ("-----------------------------------------------")
                 
             for key_coords in cluster:
                 cluster_data[key_coords] = perc
@@ -913,13 +913,13 @@ class Analysis:
         if( (max_col < 1000) and (not ((out_file is None) and (no_fig))) ):
             sys.stderr.write( "Building the matrix\n" )
             
-            plot_data = np.array([[0.0] * max_col for r in xrange( max_col )])
-            plot_xx = np.array([[r for c in xrange( max_col )] for r in xrange( max_col )])
-            plot_yy = np.array([[c for c in xrange( max_col )] for r in xrange( max_col )])
+            plot_data = np.array([[0.0] * max_col for r in range( max_col )])
+            plot_xx = np.array([[r for c in range( max_col )] for r in range( max_col )])
+            plot_yy = np.array([[c for c in range( max_col )] for r in range( max_col )])
 
             for ((row, col), perc) in cluster_data.items():
                 plot_data[row][col] = perc
-                print row, col, perc
+                print (row, col, perc)
             
             # 3D
             fig = plt.figure()
@@ -962,7 +962,7 @@ class Analysis:
         max_col += 1
         
         sys.stderr.write( "Initalize matrix\n" )
-        count = np.array([[0.0] * max_col for r in xrange( max_col )])
+        count = np.array([[0.0] * max_col for r in range( max_col )])
         
         for (i, cand) in enumerate(cands):
             if( cand.model.full_name() == model_name ):
@@ -975,21 +975,21 @@ class Analysis:
                 if( x > x_min and y > y_min ):
                     count[r][c] += 1.0
 
-        plot_data = np.array([[0.0] * max_col for r in xrange( max_col )])
-        plot_xx = np.array([[r for c in xrange( max_col )] for r in xrange( max_col )])
-        plot_yy = np.array([[c for c in xrange( max_col )] for r in xrange( max_col )])
+        plot_data = np.array([[0.0] * max_col for r in range( max_col )])
+        plot_xx = np.array([[r for c in range( max_col )] for r in range( max_col )])
+        plot_yy = np.array([[c for c in range( max_col )] for r in range( max_col )])
         
         hot_coords = set()
 
-        for row in xrange(max_col):
+        for row in range(max_col):
             sys.stderr.write( "%sStep: %d of %d" %("\b" * 80, row, max_col) )
             sys.stderr.flush() 
             
-            for col in xrange(max_col):
+            for col in range(max_col):
 
                 coords_aux = set()
-                for o_row in xrange( max(0, row-4), min(max_col, row+4) ):
-                    for o_col in xrange( max(0, col-4), min(max_col, col+4) ):
+                for o_row in range( max(0, row-4), min(max_col, row+4) ):
+                    for o_col in range( max(0, col-4), min(max_col, col+4) ):
                         plot_data[row][col] += count[o_row][o_col]
                         
                         if( (not threshold is None) and (count[o_row][o_col] > 0) ):
@@ -1003,7 +1003,7 @@ class Analysis:
         sys.stderr.write( "%sDONE%s\n" %("\b" * 80, " " * 80) )
 
         for (r, c) in hot_coords:
-            print r, c
+            print (r, c)
         
         fig = plt.figure()
         
@@ -1049,7 +1049,7 @@ class Analysis:
         elif( choice == "score" ):
             result = cand.score
         else:
-            print "ERROR: wrong choice"
+            print ("ERROR: wrong choice")
             quit()
         
         return( result )
