@@ -2,11 +2,11 @@ import copy
 import math
 import sys
 
-import bayes
-#import model_parser
+# import lib.bayes
+import lib.bayes as bayes
 
-from node import *
-from pair import *
+from lib.node import *
+from lib.pair import *
 
 
 class Model:
@@ -113,10 +113,10 @@ class Model:
         return( result )
         
     def prob_cond( self, pmodel, var_a, vars_b ):
-        cp = bayes.CondProb( pmodel, [var_a], vars_b )
+        cp = bayes.CondProb( pmodel, [var_a], vars_b )  
         
         result = {}
-
+           
         for (k, v) in cp.probs.items():
             # remember: P(k0|k1)
             k0 = k[0][0]              
@@ -125,7 +125,7 @@ class Model:
             v = round(v, 3)
             
             if( (k0 == "." and v >= 0.01) or (v >= 0.005 ) ):
-                if( not result.has_key( k1 ) ):
+                if( not result.__contains__( k1 ) ):
                     result[k1] = {}
                     
                 result[k1][k0] = v
@@ -221,7 +221,8 @@ class Model:
             graph.append( [node, []] )
 
         # order the graph by probabilities
-        graph.sort( cmp=cmp_order )
+        from functools import cmp_to_key
+        sorted(graph, key=cmp_to_key(cmp_order) )
         
         # prepare all the combinations of directions
         gap_dirs = [[]]
@@ -234,7 +235,7 @@ class Model:
 
         # compute the best order
         order_best = None
-        div_best = sys.maxint
+        div_best = sys.maxsize
         circles = ""
         
         for gap_dir in gap_dirs:
