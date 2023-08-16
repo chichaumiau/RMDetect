@@ -4,9 +4,9 @@ import random
 import time
 
 #import models
-from candidates import *
-from rnatools import *
-from gcx import *
+from lib.candidates import *
+from lib.rnatools import *
+from lib.gcx import *
 
 # ~print(GC())
 
@@ -241,4 +241,4 @@ class Scanner:
                         cands[i] = None
                         break
         
-        return( filter( lambda x: not x is None, cands ) )
+        return( list(filter( lambda x: not x is None, cands ) ))
