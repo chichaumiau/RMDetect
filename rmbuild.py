@@ -6,7 +6,6 @@ import re
 import sys
 
 import lib.bayes as bayes
-import lib.def_parser as def_parser
 import lib.file_io as file_io
 import lib.model as model
 import lib.model_parser as model_parser
@@ -137,7 +136,7 @@ def ref_seq_patterns( ref_seqs, data_source_ref_seq ):
                 pattern += "-"
                 j += 1
             else:
-                print "ERROR: Error building patterns!"
+                print ("ERROR: Error building patterns!")
                 quit()
         
         patterns.append( pattern )
@@ -155,38 +154,37 @@ def translate_id( id, ref_seqs ):
 
             count -= 1
     
-    print "ERROR: id %d not found in %s." %(id, ref_seq)
+    print ("ERROR: id %d not found in %s." %(id, ref_seq))
     quit() 
 
 def check_def_model( fname, def_model ):
     # check if the ref seq exists
     if( len(def_model.ref_seqs) == 0 ):
-        print "ERROR: REF_SEQ not found in the definition file '%s'" %fname
+        print ("ERROR: REF_SEQ not found in the definition file '%s'" %fname)
         quit()
     
     # check if the data sources exist
     if( len(def_model.data_sources) == 0 ):
-        print "ERROR: data sources not found in the definition file '%s'" %fname
+        print ("ERROR: data sources not found in the definition file '%s'" %fname)
         quit()
 
     # check if the ref_seq length is equal to the number of nodes
     if( len("".join(def_model.ref_seqs)) != len(def_model.nodes) ):
-        print "ERROR: %d nodes found %d expected." %(len(def_model.nodes), len("".join(def_model.ref_seqs)))
-        print "       The number of nodes must be equal to REF_SEQS length: '%s'." %(", ".join(def_model.ref_seqs))
+        print ("ERROR: %d nodes found %d expected." %(len(def_model.nodes), len("".join(def_model.ref_seqs))))
+        print ("       The number of nodes must be equal to REF_SEQS length: '%s'." %(", ".join(def_model.ref_seqs)))
         quit()
 
     # check if each pattern has the same length of the respective ref_seq
     for data_source in def_model.data_sources:
         if( len("".join(def_model.ref_seqs)) != len("".join(data_source.patterns)) ):
-            print "ERROR: The pattern '%s' and the REF_SEQ '%s' must have the same length." %("".join(def_source.patterns), "".join(def_model.ref_seqs))
+            print ("ERROR: The pattern '%s' and the REF_SEQ '%s' must have the same length." %("".join(def_source.patterns), "".join(def_model.ref_seqs)))
             quit()
 
 def check_ref_seqs( ref_seqs, data_source_ref_seq, data_source ):
     model_ref_seq = "".join( ref_seqs ).replace( ".", "" ).replace( "-", "" )
     data_source_ref_seq = data_source_ref_seq.replace( ".", "" ).replace( "-", "" )
-    
     if( model_ref_seq != data_source_ref_seq ):
-        print "ERROR: REF_SEQ in file '%s' must contain the declared REF_SEQ '%s'" %(data_source, model_ref_seq)
+        print ("ERROR: REF_SEQ in file '%s' must contain the declared REF_SEQ '%s'" %(data_source, model_ref_seq))
 
 #
 # *** MAIN ***
@@ -210,7 +208,7 @@ parser.add_option( "--out",    action="store", dest="out_file", default=None, ty
 (options, args) = parser.parse_args()
 
 if( (options.pdb_file is None) and (options.def_file is None) ):
-    print "ERROR: Please define either PDB file or a definition file"
+    print ("ERROR: Please define either PDB file or a definition file")
     quit()
 
 def_file = options.def_file
@@ -218,18 +216,18 @@ def_file = options.def_file
 # if we have a pdb file:
 if( options.pdb_file is not None ):
     if( options.coords is None ):
-        print "ERROR: Please define the coordinates of the strands in the pdb file"
-        print "       CHAIN:POS:LEN,CHAIN:POS:LEN"
+        print ("ERROR: Please define the coordinates of the strands in the pdb file")
+        print ("       CHAIN:POS:LEN,CHAIN:POS:LEN")
         quit()
 
     if( len(args) == 0 ):
-        print "ERROR: Please define at least on STK file"
+        print ("ERROR: Please define at least on STK file")
         quit()
 
     m = re.match( "^([A-Za-z]+)_([0-9]+\.[0-9]+)$", options.name )
     if( m is None ):
-        print "WARNING: No (or invalid) model name and version."
-        print "         Default model name and version used: NEWMODEL_1.0"
+        print ("WARNING: No (or invalid) model name and version.")
+        print ("         Default model name and version used: NEWMODEL_1.0")
         
         name = "NEWMODEL"
         version = "1.0"
@@ -284,7 +282,8 @@ if( options.pdb_file is not None ):
         for (ndx, c) in enumerate(ref_seq):
             id = len(nodes)
             
-            conds = map( lambda x: x.id1, filter( lambda x: x.id2 == id, interactions ) )
+            conds = list(map( lambda x: x.id1, filter( lambda x: x.id2 == id, interactions ) ))
+#             print(conds)
             nodes.append( node.Node( id, chain, ndx, conds ) )
             
             if( id not in paired ):
@@ -309,7 +308,7 @@ for def_data_source in def_model.data_sources:
     data_source_ref_seq = stk.get_seq( "REF_SEQ" )
     
     if( data_source_ref_seq is None ):
-        print "ERROR: REF_SEQ not found in stk file '%s'" %def_data_source.align
+        print ("ERROR: REF_SEQ not found in stk file '%s'" %def_data_source.align)
         quit()
     
     # get the columns according to the defined chain pattern
@@ -318,7 +317,7 @@ for def_data_source in def_model.data_sources:
     columns = get_columns_from_sources( def_model.ref_seqs, def_data_source.patterns, data_source_ref_seq )
     
     if( columns is None ):
-        print "ERROR: Can't match the REF_SEQ from '%s' and the pattern from the definition file '%s'" %(def_data_source.align, def_file)
+        print ("ERROR: Can't match the REF_SEQ from '%s' and the pattern from the definition file '%s'" %(def_data_source.align, def_file))
         quit()
     
     # for each sequence gets a "data" entry (contains an entry for each position of the pattern and the number of rows of the stk)
@@ -343,22 +342,24 @@ data_save( data_file, data )
 # using the defined interactions build the Bayesian model and compute the probabilities
 pmodel = bayes.Model( data )
 
+
 for (i, node) in enumerate(def_model.nodes):
     # if the node has no dependency
     if( node.conds is None ):
         node.probs = def_model.prob_joint( pmodel, "N%d" %i )
+        
     else:
-        node.probs = def_model.prob_cond( pmodel, "N%d" %i, ["N%d" %i for i in node.conds] )
-
+        node.probs = def_model.prob_cond(  pmodel, "N%d" %i, ["N%d" %i for i in node.conds] )
+        print(node.probs)
+        print(node.conds)   
 # save the model
 if( options.out_file is None ):
     out_file = def_file.replace( ".def", "" ) + ".model"
     
-    print "WARNING: No model file name was defined."
-    print "         Default model file name used: '%s'" %out_file
+    print ("WARNING: No model file name was defined.")
+    print ("         Default model file name used: '%s'" %out_file)
 else:
     out_file = options.out_file
-
 def_model.data_sources = None
 def_model.ref_seqs = None
 
