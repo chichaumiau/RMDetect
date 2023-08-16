@@ -1,8 +1,8 @@
 import math
 import sys
 
-from pair import *
-from rnatools import *
+from lib.pair import *
+from lib.rnatools import *
 #
 # auxiliar merge pair function
 #
