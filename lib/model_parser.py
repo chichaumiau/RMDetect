@@ -6,9 +6,9 @@
 import math
 import os
 
-from model import *
-from node import *
-from pair import *
+from lib.model import *
+from lib.node import *
+from lib.pair import *
 
 class ModelParser:
     def __init__(self):
@@ -269,12 +269,12 @@ class ModelParser:
             
     def __write_probs(self):
         for node in self.model.nodes:
-            if( node.probs.has_key( "*" ) ):
+            if( "*" in node.probs ):
                 self.fo.write( "PROB\t%2d\t*" %(node.id) )
                 self.__write_prob_line( node.probs["*"] )
             else:
                 keys = node.probs.keys()
-                keys.sort()
+                sorted(keys)
                 
                 for k in keys:
                     self.fo.write( "PROB\t%2d\t%s" %(node.id, k) )
@@ -284,7 +284,7 @@ class ModelParser:
             
     def __write_prob_line(self, probs):
         for k in "ACGU.":
-            if( probs.has_key( k ) ):
+            if( probs.__contains__( k ) ):
                 s = "\t%s:%.3f" %(k, probs[k]) 
             else:
                 s = "\t%s:-   " %(k)
